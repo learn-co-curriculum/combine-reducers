@@ -142,7 +142,7 @@ We're telling __Redux__ to produce a reducer which will return a state that has 
 
 ### Examining Our New Reducers
 
-Now if you examine the __authorsReducer()__, notice that this reducer only concerns itself with its own slice of the state. This makes sense. Remember that ultimately the array that the __authorsReducer()__ returns will be the value to the key of authors. Similarly the __authorsReducer()__ only receives as it's state argument the value of state.authors, in other words the authors array.  
+Now if you examine the __authorsReducer()__, notice that this reducer only concerns itself with its own slice of the state. This makes sense. Remember that ultimately the array that the __authorsReducer()__ returns will be the value to the key of authors. Similarly the __authorsReducer()__ only receives as its state argument the value of state.authors, in other words the authors array.  
 
 So examining the __authorsReducer()__, we see that we no longer retrieve the list of authors with a call to `state.authors`, but can access the list of authors simply by calling `state`.
 
@@ -235,3 +235,5 @@ So you can see that both the __booksReducer()__ and the __authorsReducer()__ wil
 + [Implementing Combine Reducers from Scratch](https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch)
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/combine-reducers-codealong'>Combine Reducers Codealong</a> on Learn.co and start learning to code for free.</p>
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/combine-reducers'>Combine Reducers</a> on Learn.co and start learning to code for free.</p>

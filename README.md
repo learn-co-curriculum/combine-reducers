@@ -23,7 +23,7 @@ of programming books that we've read.
 
 We want our app to do two things:
 
-1. Keep track of all the books we've read: title, author, description.
+1. Keep track of all the books we've read: title and author name.
 2. Keep track of the authors who wrote these books.
 
 #### Determine Application State Structure
@@ -137,7 +137,7 @@ spread operator to deeply copy nested data.
 The `combineReducers()` function allows us to write two or more separate
 reducers, then pass each reducer to the `combineReducers()` function to produce
 the reducer we wrote above. Then we pass that combined reducer to the store in
-`src/index.js`. Let's write some code, and then we'll walk through it below.
+`src/index.js`. Let's write some code, and then we'll walk through it below. Change the code in `manageAuthorsAndBooks.js` to the following:
 
 ```javascript
 import { combineReducers } from "redux";
@@ -194,8 +194,8 @@ const rootReducer = combineReducers({
 export default rootReducer;
 ```
 
-Through `combineReducer`, we're telling **Redux** to produce a reducer which
-will return a state that has both a key of books with a value equal to the
+Through `combineReducers`, we're telling **Redux** to produce a reducer which
+will return a state that has both a key of **books** with a value equal to the
 return value of the `booksReducer()` _and_ a key of **authors** with a value
 equal to the return value of the `authorsReducer()`. Now if you look at the
 `booksReducer()` and the `authorsReducer()` you will see that each returns a
@@ -271,8 +271,8 @@ function reducer(state = {
 ```
 
 Because of this, we can dispatch actions the same way we always did.
-`store.dispatch({ type: 'ADD_BOOK', { title: 'Snow Crash', author: 'Neal Stephenson' } });`
-will hit our switch statement in the reducer and add a new author. One thing
+`store.dispatch({ type: 'ADD_BOOK', { title: 'Snow Crash', authorName: 'Neal Stephenson' } });`
+will hit our switch statement in the reducer and add a new book. One thing
 to note, is that if you want to have more than one reducer respond to the same
 action, you can.
 
@@ -280,7 +280,7 @@ For example, in our application, when a user inputs information about a book,
 the user _also_ inputs the author's name. It would be handy if, when a user
 submits a book with an author, that author is also added to our author array.
 
-The action dispatched doesn't change: `store.dispatch({ type: 'ADD_BOOK', { title: 'Snow Crash', author: 'Neal Stephenson' } });`. Our
+The action dispatched doesn't change: `store.dispatch({ type: 'ADD_BOOK', { title: 'Snow Crash', authorName: 'Neal Stephenson' } });`. Our
 `booksReducer` can stay the same for now:
 
 ```javascript
@@ -333,7 +333,7 @@ function authorsReducer(state = [], action) {
 ```
 
 In the new "ADD_BOOK" case, we're checking to see if an authorName matches with
-the name dispatches from the BookInput component. If the name already exists,
+the name dispatched from the BookInput component. If the name already exists,
 state is returned unchanged. If the name is not present, it is added to the
 author array. Use the example above to modify the `manageAuthorsAndBooks`
 reducer and you can see the effect. We have two separate forms, one for adding
@@ -346,7 +346,7 @@ instead of in `AuthorInput.js`, we need to import it here as well.
 ## Conclusion
 
 For learning purposes, our two reducers are in the same file, but it is common
-to separate each reducer into its own file. You could then either import each
+to separate each reducer into its own file. You could then import each
 reducer into a _new_ file, something like `reducers/rootReducer.js`, where
 `combineReducer` is called. Or, alternatively, you could include
 `combineReducer` in your `src/index.js` file. For example:

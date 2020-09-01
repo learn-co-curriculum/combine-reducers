@@ -70,7 +70,7 @@ export default function bookApp(
         authors: [...state.authors],
         books: [...state.books, action.book]
       };
-
+ 
     case "REMOVE_BOOK":
       idx = state.books.findIndex(book => book.id === action.id);
       return {
@@ -78,14 +78,14 @@ export default function bookApp(
         authors: [...state.authors],
         books: [...state.books.slice(0, idx), ...state.books.slice(idx + 1)]
       };
-
+ 
     case "ADD_AUTHOR":
       return {
         ...state,
         books: [...state.books],
         authors: [...state.authors, action.author]
       };
-
+ 
     case "REMOVE_AUTHOR":
       idx = state.authors.findIndex(author => author.id === action.id);
       return {
@@ -93,7 +93,7 @@ export default function bookApp(
         books: [...state.books],
         authors: [...state.authors.slice(0, idx), ...state.authors.slice(idx + 1)]
       };
-
+ 
     default:
       return state;
   }
@@ -244,7 +244,7 @@ the key of authors in our application state object. Consequently, the
 `authorsReducer()` should only receive as its state argument the value of 
 `state.authors`, in other words, the authors array. This means that we no longer 
 need to retrieve the list of authors with a call to `state.authors`, but instead 
-can access it simply by calling `state`.
+can access it simply by calling `state`. 
 
 ```javascript
 function authorsReducer(state = [], action) {
@@ -262,6 +262,8 @@ function authorsReducer(state = [], action) {
   }
 }
 ```
+
+The same applies to the `booksReducer()`.
 
 #### Dispatching Actions
 
@@ -285,19 +287,19 @@ function reducer(state = {
 }
 ```
 
-Because of this, we can dispatch actions the same way we always did. 
+Because of this, we can dispatch actions the same way we always did: 
 `store.dispatch({ type: 'ADD_BOOK', { title: 'Snow Crash', author: 'Neal Stephenson' } });` 
-will hit our switch statement in the reducer and add a new author. One thing to 
-note is that you can have more than one reducer respond to the same action if 
-you want to.
+will hit our switch statement in the reducer and add a new author. 
 
-For example, in our application, when a user inputs information about a book, the 
-user _also_ inputs the author's name. It would be handy if, when a user submits 
-a book with an author, that author is also added to our author array.
+One thing to note is that you can have more than one reducer respond to the same 
+action if you want to. For example, in our application, when a user inputs 
+information about a book, the user _also_ inputs the author's name. It would be 
+handy if, when a user submits a book with an author, that author is also added to 
+our author array.
 
-The action dispatched doesn't change: 
+The action dispatched will be the same: 
 `store.dispatch({ type: 'ADD_BOOK', { title: 'Snow Crash', author: 'Neal Stephenson' } });`
-Our `booksReducer` can stay the same for now:
+And our `booksReducer` stays the same as well:
 
 ```javascript
 function booksReducer(state = [], action) {
@@ -319,7 +321,7 @@ function booksReducer(state = [], action) {
 However, in `authorsReducer`, we can _also_ include a switch case for "ADD_BOOK":
 
 ```js
-import uuid from "uuid";
+import uuid from "uuid"; 
 
 function authorsReducer(state = [], action) {
   let idx;
@@ -350,7 +352,7 @@ function authorsReducer(state = [], action) {
 In the new "ADD_BOOK" case, we're checking to see if any of the `authorName`s 
 currently stored in state match the name dispatched from the BookInput component. 
 If the name already exists, state is returned unchanged. If the name is not 
-present, it is added to the author array. Use the example above to modify the 
+present, it is added to the authors array. Use the example above to modify the 
 `manageAuthorsAndBooks` reducer and you can see the effect. We have two separate 
 forms, one for adding just authors, and one that adds books _and_ authors.
 

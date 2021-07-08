@@ -10,7 +10,7 @@ const store = createStore(manageAuthorsAndBooks, window.__REDUX_DEVTOOLS_EXTENSI
 
 ReactDOM.render(
   <Provider store={store}>
-    <App store={store}/>
+    <App />
   </Provider>,
   document.getElementById('root')
 );
